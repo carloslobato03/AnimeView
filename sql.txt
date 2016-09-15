@@ -1,0 +1,51 @@
+create table UserInfo(
+id_userinfo bigint not null primary key generated always as identity(start with 1, increment by 1),
+nome varchar(120) not null,
+email varchar(120) not null,
+dnascimento date
+
+);
+
+create table UserAnime(
+id_useranime bigint not null primary key generated always as identity(start with 1, increment by 1),
+username varchar(60) not null,
+password varchar(50) not null
+);
+
+create table Anime(
+id_anime bigint not null primary key generated always as identity(start with 1, increment by 1),
+id_apianime varchar(200) not null
+);
+
+create table ListaPessoal(
+id_lista bigint not null primary key generated always as identity(start with 1, increment by 1)
+
+);
+
+ create table ConteudoLista(
+ id_ConteudoLista bigint not null primary key generated always as identity(start with 1, increment by 1 )
+ );
+create table Noticia(
+id_noticia bigint not null primary key generated always as identity(start with 1, increment by 1),
+id_apinoticia varchar(200) not null
+);
+
+alter table UserAnime
+add foreign key(id_useranime)
+references userinfo(id_userinfo)
+on delete cascade;
+
+alter table ListaPessoal
+add foreign key(id_lista)
+references UserAnime(id_useranime)
+on delete cascade;
+
+alter table ConteudoLista
+add foreign key(id_ConteudoLista)
+references Anime(id_anime)
+on delete cascade;
+
+alter table ConteudoLista
+add foreign key(id_ConteudoLista)
+references ListaPessoal(id_lista)
+on delete cascade;
