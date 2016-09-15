@@ -68,7 +68,7 @@ public class UserAnimeDAO implements GenericDAO<UserAnime> {
         }
     }
     public UserAnime readByEmail(String email){
-        Query query = em.createNamedQuery("UserAnime.findByEmail")
+        Query query = em.createNamedQuery("UserInfo.findByEmail")
                 .setParameter("email", email);
         Object object = null;
         try {

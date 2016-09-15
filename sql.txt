@@ -30,9 +30,9 @@ id_noticia bigint not null primary key generated always as identity(start with 1
 id_apinoticia varchar(200) not null
 );
 
-alter table UserAnime
-add foreign key(id_useranime)
-references userinfo(id_userinfo)
+alter table UserInfo
+add foreign key(id_userinfo)
+references useranime(id_useranime)
 on delete cascade;
 
 alter table ListaPessoal

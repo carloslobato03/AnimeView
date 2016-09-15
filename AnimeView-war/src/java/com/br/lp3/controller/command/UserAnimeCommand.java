@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 31517072
  */
 public class UserAnimeCommand implements Command {
+
     UserAnimeDAO userAnimeDAO = lookupUserAnimeDAOBean();
 
     HttpServletRequest request;
@@ -80,11 +81,12 @@ public class UserAnimeCommand implements Command {
                     UserInfo ui = new UserInfo();
                     ui.setDnascimento(birthday);
                     ui.setEmail(email);
-                    ui.setNome(email);
-                    ui.setUseranime(user);
+                    ui.setNome(firstname);
                     
+                    ui.setUseranime(user);
                     user.setUserinfo(ui);
-
+                    
+                    
                     userAnimeDAO.create(user);
                     responsePage = "index.jsp";
                 }
