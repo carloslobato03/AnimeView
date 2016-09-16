@@ -6,8 +6,8 @@
 package com.br.lp3.controller.command;
 
 import com.br.lp3.model.dao.UserAnimeDAO;
-import com.br.lp3.model.entities.UserAnime;
-import com.br.lp3.model.entities.UserInfo;
+import com.br.lp3.model.entities.Useranime;
+import com.br.lp3.model.entities.Userinfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,11 +55,11 @@ public class UserAnimeCommand implements Command {
                 try {
                     birthday = sdf.parse(request.getParameter("birthday"));
                 } catch (ParseException ex) {
-                    Logger.getLogger(UserAnime.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Useranime.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                UserAnime temp1 = userAnimeDAO.readByUsername(username);
-                UserAnime temp2 = userAnimeDAO.readByEmail(email);
+                Useranime temp1 = userAnimeDAO.readByUsername(username);
+                Useranime temp2 = userAnimeDAO.readByEmail(email);
 
                 if (temp1 != null) {
                     responsePage = "error.jsp";
@@ -74,11 +74,11 @@ public class UserAnimeCommand implements Command {
                     request.getSession().setAttribute("error", "As senhas digitadas não batem");
                     break;
                 } else {
-                    UserAnime user = new UserAnime();
+                    Useranime user = new Useranime();
                     user.setUsername(username);
                     user.setPassword(password);
 
-                    UserInfo ui = new UserInfo();
+                    Userinfo ui = new Userinfo();
                     ui.setDnascimento(birthday);
                     ui.setEmail(email);
                     ui.setNome(firstname);
@@ -95,7 +95,7 @@ public class UserAnimeCommand implements Command {
             case "login":
                 username = request.getParameter("username");
                 password = request.getParameter("password");
-                UserAnime temp3 = userAnimeDAO.readByUsername(username);
+                Useranime temp3 = userAnimeDAO.readByUsername(username);
                 if (temp3 == null) {
                     responsePage = "error.jsp";
                     request.getSession().setAttribute("error", "Usuario não encontrado!");

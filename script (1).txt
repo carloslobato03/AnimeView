@@ -1,0 +1,93 @@
+CREATE TABLE UserAnime(
+    id_user bigint not null primary key
+                    generated always as identity
+                    (start with 1, increment by 1),
+    username varchar(50) not null,
+    password varchar(50) not null
+);
+
+CREATE TABLE UserInfo(
+    id_userInfo bigint not null primary key
+                    generated always as identity
+                    (start with 1, increment by 1),
+    user_nome varchar(120) not null,
+    user_email varchar(120) not null,
+    user_nascimento date not null
+);
+
+CREATE TABLE Anime(
+    id_anime bigint not null primary key
+                    generated always as identity
+                    (start with 1, increment by 1),
+    id_animeAPI varchar(200) not null
+);
+
+CREATE TABLE ListaPessoal(
+    id_lista bigint not null primary key
+                    generated always as identity
+                    (start with 1, increment by 1),
+    id_user bigint not null
+);
+
+CREATE TABLE ConteudoLista(
+    id_lista bigint not null,
+    id_anime bigint not null,
+    primary key(id_lista, id_anime)
+);
+
+CREATE TABLE Noticia(
+    id_noticia bigint not null primary key
+                    generated always as identity
+                    (start with 1, increment by 1),
+    id_noticiaAPI varchar(200) not null
+);
+
+CREATE TABLE ListaNoticia(
+    id_user bigint not null,
+    id_noticia bigint not null,
+    primary key(id_user, id_noticia)
+);
+
+ALTER TABLE UserInfo
+    add foreign key(id_userInfo)
+    references UserAnime(id_user)
+    on delete cascade;
+
+ALTER TABLE ListaPessoal
+    add foreign key(id_user)
+    references UserAnime(id_user)
+    on delete cascade;
+
+ALTER TABLE ConteudoLista
+    add foreign key(id_lista)
+    references ListaPessoal(id_lista)
+    on delete cascade;
+
+ALTER TABLE ConteudoLista
+    add foreign key(id_anime)
+    references Anime(id_anime)
+    on delete cascade;
+
+ALTER TABLE ListaNoticia
+    add foreign key(id_user)
+    references UserAnime(id_user)
+    on delete cascade;
+
+ALTER TABLE ListaNoticia
+    add foreign key(id_noticia)
+    references Noticia(id_noticia)
+    on delete cascade;
+
+
+
+
+
+
+
+drop table useranime;
+drop table UserInfo;
+drop table Anime;
+drop table ListaPessoal;
+drop table ConteudoLista;
+drop table Noticia;
+

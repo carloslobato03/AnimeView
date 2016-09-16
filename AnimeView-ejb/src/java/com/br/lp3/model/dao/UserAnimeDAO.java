@@ -5,7 +5,8 @@
  */
 package com.br.lp3.model.dao;
 
-import com.br.lp3.model.entities.UserAnime;
+import com.br.lp3.model.entities.Useranime;
+import com.br.lp3.model.entities.Userinfo;
 import com.sun.javafx.print.Units;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -22,58 +23,58 @@ import javax.persistence.Query;
  */
 @Stateful
 @LocalBean
-public class UserAnimeDAO implements GenericDAO<UserAnime> {
+public class UserAnimeDAO implements GenericDAO<Useranime> {
 
     @PersistenceContext(unitName = "AnimeView-ejbPU", type = PersistenceContextType.TRANSACTION)
-
     private EntityManager em;
 
     @Override
-    public void create(UserAnime e) {
+    public void create(Useranime e) {
         em.persist(e);
     }
 
     @Override
-    public void delete(UserAnime e) {
+    public void delete(Useranime e) {
     em.merge(e);
     em.remove(e);
     }
 
     @Override
-    public void update(UserAnime e) {
+    public void update(Useranime e) {
         em.merge(e);
     }
 
     @Override
-    public List<UserAnime> read() {
-        Query query = em.createNamedQuery("UserAnime.findAll");
-        return query.getResultList();
+    public List<Useranime> read() {
+        Query query = em.createNamedQuery("Useranime.findAll");
+        return (List<Useranime>)query.getResultList();
     }
 
     @Override
-    public UserAnime readById(long id) {
+    public Useranime readById(long id) {
         // Eager
-        return em.find(UserAnime.class, id);
+        return em.find(Useranime.class, id);
    }
     
-    public UserAnime readByUsername(String username){
-        Query query = em.createNamedQuery("UserAnime.findByUsername")
+    public Useranime readByUsername(String username) {
+        Query query = em.createNamedQuery("Useranime.findByUsername")
                 .setParameter("username", username);
         Object object = null;
         try {
             object = query.getSingleResult();
-            return (UserAnime)object;
+            return (Useranime)object;
         } catch (NoResultException ex) {
             return null;
         }
     }
-    public UserAnime readByEmail(String email){
-        Query query = em.createNamedQuery("UserInfo.findByEmail")
+    
+    public Useranime readByEmail(String email) {
+        Query query = em.createNamedQuery("Userinfo.findByEmail")
                 .setParameter("email", email);
         Object object = null;
         try {
             object = query.getSingleResult();
-            return (UserAnime)object;
+            return ((Userinfo)object).getUseranime();
         } catch (NoResultException ex) {
             return null;
         }
