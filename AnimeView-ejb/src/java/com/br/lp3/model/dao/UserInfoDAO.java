@@ -5,7 +5,7 @@
  */
 package com.br.lp3.model.dao;
 
-import com.br.lp3.model.entities.UserInfo;
+import com.br.lp3.model.entities.Userinfo;
 import com.sun.javafx.print.Units;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -21,38 +21,38 @@ import javax.persistence.Query;
  */
 @Stateful
 @LocalBean
-public class UserInfoDAO implements GenericDAO<UserInfo> {
+public class UserInfoDAO implements GenericDAO<Userinfo> {
 
     @PersistenceContext(unitName = "AnimeView-ejbPU", type = PersistenceContextType.TRANSACTION)
 
     private EntityManager em;
 
     @Override
-    public void create(UserInfo e) {
+    public void create(Userinfo e) {
         em.persist(e);
     }
 
     @Override
-    public void delete(UserInfo e) {
+    public void delete(Userinfo e) {
     em.merge(e);
     em.remove(e);
     }
 
     @Override
-    public void update(UserInfo e) {
+    public void update(Userinfo e) {
         em.merge(e);
     }
 
     @Override
-    public List<UserInfo> read() {
+    public List<Userinfo> read() {
         Query query = em.createNamedQuery("UserInfo.findAll");
         return query.getResultList();
     }
 
     @Override
-    public UserInfo readById(long id) {
+    public Userinfo readById(long id) {
         // Eager
-        return em.find(UserInfo.class, id);
+        return em.find(Userinfo.class, id);
    }
 
 }
